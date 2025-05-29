@@ -7,7 +7,7 @@
 2. [Install `flyctl`](https://fly.io/docs/flyctl/install/) - to read this configuration, build it & deploy it to the cloud
 
 > [!NOTE]
-> The file `Dockerfile` defines instructions for creating an operating system and installing `TiddlyWiki` to it. `Fly` reads these instructions, builds it on their cloud infrastructure, and deploys this built operating system to their cloud.
+> `Dockerfile` defines instructions for creating an operating system and installing `TiddlyWiki` to it. `Fly` reads these instructions, builds it on their cloud infrastructure, and deploys this built operating system to their cloud.
 
 
 3. Create your `fly` machine
@@ -80,6 +80,20 @@ rm wiki.tar
 
 > [!WARNING]
 > Can't connect to your fly machine? Checkout [Fix app has no started VMs](#fix-app-has-no-started-vms)
+
+
+8. Add authentication
+
+Create environment variables `$TWUSER` & `$TWPASS` to define your username & password with the `flyctl` CLI -
+
+```sh
+fly secrets set TWUSER=username
+fly secrets set TWUSER=password
+fly deploy
+```
+
+> [!NOTE]
+> `Dockerfile` defines a startup command `npx tiddlywiki --listen` which specifies that `TiddlyWiki` look for a username & password in these environment variables
 
 
 **And we're done.**
